@@ -1,6 +1,25 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-void mostrarMenu()
+float ler_numero(char* mensagem) 
+{
+    char buffer[64]; 
+    float valor;
+    while (1) 
+    {  
+        printf("%s", mensagem);
+        if (fgets(buffer, sizeof(buffer), stdin))
+        {
+            if (sscanf(buffer, "%f", &valor) == 1) 
+            {
+                return valor; 
+            }
+        }
+        printf("Numero invalido. Tente novamente.\n"); 
+    }
+}
+/// 
+void mostrar_menu()
 {
     printf("+=============================+\n");
     printf("|        MENU PRINCIPAL       |\n");
@@ -11,22 +30,15 @@ void mostrarMenu()
     printf("|[ 4 ] DIVISAO                |\n");
     printf("|[ 0 ] SAIR                   |\n");
     printf("+=============================+\n");
-    printf("| ESCOLHA UMA OPCAO: (0-4)    |\n");
+    printf("| ESCOLHA UMA OPCAO: (0-4)    |");
 }
-// ler numeros de operacao
-float lerPrimeiroNumero() 
+
+/// resultado 
+void exibir_resultado(float resultado)
 {
-    float n;
-    printf("Digite o primeiro numero: ");
-    scanf("%f", &n);
-    return n;
-}
-float lerSegundoNumero() 
-{
-    float n;
-    printf("Digite o segundo numero: ");
-    scanf("%f", &n);
-    return n;
+    printf("+=============================+\n");
+    printf("| RESULTADO: %.2f             |\n", resultado);
+    printf("+=============================+\n");
 }
 
 // calculos
@@ -53,47 +65,42 @@ int main ()
     int opcao;       // para armazenar a escolha do menu
     float n1, n2;    // para armazenar os números digitados
     float resultado; // para armazenar o resultado do cálculo
+    char buffer_opcao[10];
 
     do 
     {
-        mostrarMenu();             // mostra o menu
-        scanf("%d", &opcao);       // lê a opção do usuário
+        mostrar_menu();  
+        fgets(buffer_opcao, sizeof(buffer_opcao), stdin);
+        opcao = atoi(buffer_opcao); 
+
+        if(opcao >= 1 && opcao <= 4) 
+        {
+            n1 = ler_numero("Digite o primeiro numero: ");
+            n2 = ler_numero("Digite o segundo numero: ");
+        }          
+
         switch(opcao) 
         {
             case 1: // soma
-                n1 = lerPrimeiroNumero();
-                n2 = lerSegundoNumero();
                 resultado = soma(n1, n2);
-                printf("+=============================+\n");
-                printf("| RESULTADO: %.2f             |\n", resultado);
-                printf("+=============================+\n");
+                exibir_resultado(resultado);
                 break;
 
             case 2: // subtracao
-                n1 = lerPrimeiroNumero();
-                n2 = lerSegundoNumero();
                 resultado = subtracao(n1, n2);
-                printf("+=============================+\n");
-                printf("| RESULTADO: %.2f             |\n", resultado);
-                printf("+=============================+\n");
+                exibir_resultado(resultado);
                 break;
 
             case 3: // multiplicacao
-                n1 = lerPrimeiroNumero();
-                n2 = lerSegundoNumero();
                 resultado = multiplicacao(n1, n2);
-                printf("+=============================+\n");
-                printf("| RESULTADO: %.2f             |\n", resultado);
-                printf("+=============================+\n");
+                exibir_resultado(resultado);
                 break;
 
             case 4: // divisao
-                n1 = lerPrimeiroNumero();
-                n2 = lerSegundoNumero();
                 if(n2 == 0) 
                 {
                     printf("+=============================+\n");
-                    printf("| ERRO: Divisao por 0!       |\n");
+                    printf("| ERRO: Divisao por 0!        |\n");
                     printf("+=============================+\n");
                     n1 = 0;
                     n2 = 0;
@@ -102,9 +109,7 @@ int main ()
                 else 
                 {
                     resultado = divisao(n1, n2);
-                    printf("+=============================+\n");
-                    printf("| RESULTADO: %.2f              |\n", resultado);
-                    printf("+=============================+\n");
+                    exibir_resultado(resultado);
                 }
                 break;
 
