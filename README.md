@@ -1,5 +1,5 @@
 
-# CALCULADORA - Versão 2
+# CALCULADORA - Versão 3
 
 ## 1. Como Compilar e Executar
 
@@ -44,6 +44,13 @@
 
 **Observação: Se você tentar dividir por zero, o programa exibirá uma mensagem de erro e retornará ao menu principal.**
 
+**Validação em Tempo Real: Se o usuário digitar letras ou símbolos no lugar de números, o programa exibe a mensagem: "Numero invalido. Tente novamente." e repete a pergunta..**
+
+**Segurança de Memória: Implementação de fgets com controle de tamanho de buffer, protegendo o sistema contra buffer overflow.**
+
+**Entrada de Dados Profissional: Substituição do scanf (inseguro) pelo uso de stdin com sscanf, seguindo os padrões portáveis da linguagem C.**
+
+
 ## 3. Exemplos de Uso
   ### 1. SOMA
 ```
@@ -70,7 +77,17 @@ Usuário escolhe 4 e digita 10 e 0:
 
 ERRO: Divisao por 0!
 ```
-## 4. Contato
+## 4. Especificações Técnicas:
+
+- Detalhes Técnicos (Padrão Acadêmico)
+
+- Loop de Validação: Uso de while(1) para garantir a integridade dos dados de entrada.
+
+- Conversão Robusta: Uso de sscanf para validar o sucesso da conversão de tipos (String para Float/Int).
+
+- Portabilidade: Código compatível com qualquer compilador C padrão (ISO C99/C11), testado em ambientes Windows e Unix.
+
+## 5. Contato
 
 Se você tiver dúvidas, sugestões ou quiser melhorias:
 
